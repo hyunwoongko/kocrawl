@@ -11,7 +11,7 @@ class WeatherCrawler(BaseCrawler):
         self.editor = WeatherEditor()
         self.answerer = WeatherAnswerer()
 
-    def request(self, location: str, date: str) -> str:
+    def request(self, location: str, date: str):
         """
         날씨를 크롤링합니다.
         (try-catch로 에러가 나지 않는 함수)
@@ -22,13 +22,30 @@ class WeatherCrawler(BaseCrawler):
        """
 
         try:
-            return self.request_debug(location, date)
+            return self.request_debug(location, date)[0]
         except Exception:
             return self.answerer.sorry(
                 '그 날씨는 알 수가 없어요.'
             )
 
-    def request_debug(self, location: str, date: str) -> str:
+    def request_dict(self, location: str, date: str):
+        """
+        날씨를 크롤링합니다.
+        (try-catch로 에러가 나지 않는 함수)
+
+        :param location: 지역
+        :param date: 날짜
+        :return: 만들어진진 문장
+       """
+
+        try:
+            return self.request_debug(location, date)[1]
+        except Exception:
+            return self.answerer.sorry(
+                '그 날씨는 알 수가 없어요.'
+            )
+
+    def request_debug(self, location: str, date: str):
         """
         날씨를 크롤링합니다.
         (에러가 나는 디버깅용 함수)
@@ -47,14 +64,9 @@ class WeatherCrawler(BaseCrawler):
         elif date in self.date['specific']:
             return self.__specific(location, date)
         else:
-            try:
-                return self.__specific(location, date)
-            except Exception:
-                return self.answerer.sorry(
-                    '그 때의 날씨는 알 수가 없어요.'
-                )
+            return self.__specific(location, date)
 
-    def __today(self, location: str) -> str:
+    def __today(self, location: str) -> tuple:
         """
         오늘 날씨를 검색하고 조합합니다.
 
@@ -62,11 +74,11 @@ class WeatherCrawler(BaseCrawler):
         :return: 오늘 날씨
         """
 
-        result = self.searcher.naver_search(location)
-        result = self.editor.edit_today(result)
-        return self.answerer.comparison_with_yesterday_form(location, "오늘", result)
+        result_dict = self.searcher.naver_search(location)
+        result = self.editor.edit_today(result_dict)
+        return self.answerer.comparison_with_yesterday_form(location, "오늘", result), result_dict
 
-    def __tomorrow(self, location: str) -> str:
+    def __tomorrow(self, location: str) -> tuple:
         """
         내일 날씨를 검색하고 조합합니다.
 
@@ -74,11 +86,11 @@ class WeatherCrawler(BaseCrawler):
         :return: 내일 날씨
         """
 
-        result = self.searcher.naver_search(location)
-        result, josa = self.editor.edit_tomorrow(result)
-        return self.answerer.morning_afternoon_form(location, "내일", result, josa)
+        result_dict = self.searcher.naver_search(location)
+        result, josa = self.editor.edit_tomorrow(result_dict)
+        return self.answerer.morning_afternoon_form(location, "내일", result, josa), result_dict
 
-    def __after(self, location: str) -> str:
+    def __after(self, location: str) -> tuple:
         """
         모네 날씨를 검색하고 조합합니다.
 
@@ -86,11 +98,11 @@ class WeatherCrawler(BaseCrawler):
         :return: 모레 날씨
         """
 
-        result = self.searcher.naver_search(location)
-        result, josa = self.editor.edit_after(result)
-        return self.answerer.morning_afternoon_form(location, "모레", result, josa)
+        result_dict = self.searcher.naver_search(location)
+        result, josa = self.editor.edit_after(result_dict)
+        return self.answerer.morning_afternoon_form(location, "모레", result, josa), result_dict
 
-    def __specific(self, location: str, date: str) -> str:
+    def __specific(self, location: str, date: str) -> tuple:
         """
         특정 날짜 (e.g. 수요일, 6월 20일 등)의
         날씨를 검색하고 조합합니다.
@@ -99,6 +111,6 @@ class WeatherCrawler(BaseCrawler):
         :return: 오늘 날씨
         """
 
-        result = self.searcher.google_search(location, date)
-        result = self.editor.edit_specific(result)
-        return self.answerer.specific_date_form(location, date, result)
+        result_dict = self.searcher.google_search(location, date)
+        result = self.editor.edit_specific(result_dict)
+        return self.answerer.specific_date_form(location, date, result), result_dict

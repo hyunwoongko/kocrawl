@@ -27,13 +27,30 @@ class MapCrawler(BaseCrawler):
         """
 
         try:
-            return self.request_debug(location, place)
+            return self.request_debug(location, place)[0]
         except Exception:
             return self.answerer.sorry(
                 "해당 지역은 알 수 없습니다."
             )
 
-    def request_debug(self, location: str, place: str) -> str:
+    def request_dict(self, location: str, place: str):
+        """
+        지도를 크롤링합니다.
+        (try-catch로 에러가 나지 않는 함수)
+
+        :param location: 지역
+        :param place: 장소
+        :return: 해당지역 장소
+        """
+
+        try:
+            return self.request_debug(location, place)[1]
+        except Exception:
+            return self.answerer.sorry(
+                "해당 지역은 알 수 없습니다."
+            )
+
+    def request_debug(self, location: str, place: str) -> tuple:
         """
         지도를 크롤링합니다.
         (에러가 나는 디버깅용 함수)
@@ -43,7 +60,7 @@ class MapCrawler(BaseCrawler):
         :return: 해당지역 장소
         """
 
-        result = self.searcher.search_naver_map(location, place)
-        result = self.editor.edit_map(location, place, result)
+        result_dict = self.searcher.search_naver_map(location, place)
+        result = self.editor.edit_map(location, place, result_dict)
         result = self.answerer.map_form(location, place, result)
-        return result
+        return result, result_dict
