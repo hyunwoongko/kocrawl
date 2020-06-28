@@ -2,8 +2,7 @@
 [![PyPI version](https://badge.fury.io/py/kocrawl.svg)](https://badge.fury.io/py/kocrawl)
 ![GitHub](https://img.shields.io/github/license/gusdnd852/kocrawl)
 [![CodeFactor](https://www.codefactor.io/repository/github/gusdnd852/kocrawl/badge)](https://www.codefactor.io/repository/github/gusdnd852/kocrawl)
-![](docs/logo.jpg)
-
+![logo](https://user-images.githubusercontent.com/38183241/85956888-d619d580-b9c3-11ea-9243-29d2bce90cb4.png)
 ## Table of contents
 - [1. Kocrawl이란?](https://github.com/gusdnd852/kocrawl#1-kocrawl%EC%9D%B4%EB%9E%80)
     - [Waring](https://github.com/gusdnd852/kocrawl#-warning)
@@ -251,7 +250,7 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 유용할 수 있습니다. 추가로, 라이브러리에 컨트리뷰션하실 분이 있을진 모르겠지만.. 컨트리뷰션하시려면
 참고해주시길 바랍니다. 라이브러리의 전체적인 동작에 관련된 시퀀스 다이어그램을 아래에 첨부합니다.<br><br>
 
-![](docs/diagram.jpg)
+![diagram](https://user-images.githubusercontent.com/38183241/85956893-e336c480-b9c3-11ea-9f70-0f2687b1122d.png)
 
 <br>
 
@@ -261,14 +260,12 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 아래처럼 원하는 부분을 우클릭하고 '검사'를 클릭합니다.
 <br><br>
 
-![](docs/impl_01.jpg)
-
+![impl_01](https://user-images.githubusercontent.com/38183241/85956927-f053b380-b9c3-11ea-94aa-79554473e559.png)
 그러면 오른쪽처럼 웹페이지의 소스코드를 볼 수 있습니다.
 이 소스코드에서 원하는 컴포넌트의 셀렉터를 따야합니다. 
 <br><br>
 
-![](docs/impl_02.jpg)
-
+![impl_02](https://user-images.githubusercontent.com/38183241/85956932-f9448500-b9c3-11ea-82d4-ec65e1a68909.png)
 위 처럼 셀렉터 String을 만들고, bs4의 select()에 입력하면 원하는 컴포넌트를
 크롤링 할 수 있습니다. 복잡해보이지만 아래의 4가지 CSS 셀렉터 규칙만 알면 거의 
 대부분의 셀렉터를 딸 수 있습니다. 
@@ -294,7 +291,7 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 알려드리도록 하겠습니다. 이번에는 구글크롬의 Network 툴을 이용합니다. 구글크롬을 열어서 F12를 눌러서 개발자 도구를 열고, Network를 눌러봅시다.
 <br><br>
 
-![](docs/impl_03.jpg)
+![impl_03](https://user-images.githubusercontent.com/38183241/85956935-019cc000-b9c4-11ea-9ac7-cfdb85c920d6.png)
 
 위와 같은 화면을 볼 수 있습니다. 이 때 우리가 원하는 기능을 실행해봅시다.
 여기에서는 네이버 지도를 크롤링해보겠습니다. 네이버 지도는 동적으로 구현되어
@@ -303,7 +300,7 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 <br><br>
 
 
-![](docs/impl_04.jpg)
+![impl_04](https://user-images.githubusercontent.com/38183241/85956943-0c575500-b9c4-11ea-8cbe-f39c74707253.png)
 
 원하는 기능을 수행하면 수행하는 동안 위의 시간 탭이 변하게 됩니다.
 이 때, 빨간색 네모칸 처럼 내가 수행했던 구간만 선택하면 그 시간 동안 수행한 request를 전부 열람할 수 있습니다.
@@ -313,12 +310,12 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 <br><br>
 
 
-![](docs/impl_05.jpg)
+![impl_05](https://user-images.githubusercontent.com/38183241/85956949-18431700-b9c4-11ea-9cf1-a41563bbc1ed.png)
 
 빨간색 네모칸에 request에 필요한 url이 나오게 됩니다. 이 url로 접속해봅시다.
 <br><br>
 
-![](docs/impl_06.jpg)
+![impl_06](https://user-images.githubusercontent.com/38183241/85956956-2e50d780-b9c4-11ea-8157-a6e0957c6a79.png)
 
 네이버 지도 api의 결과가 출력되었습니다.
 이 때, url을 보면 뒷쪽에 너저분하게 여러가지 파라미터가 붙어있는데
@@ -328,7 +325,7 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 필수 파라미터만 남기고 다 없애는 것이 좋습니다.
 <br><br>
 
-![](docs/impl_07.jpg)
+![impl_07](https://user-images.githubusercontent.com/38183241/85956962-3ad53000-b9c4-11ea-99dd-a3118eb61826.png)
 
 qeury를 제외한 모든 파라미터를 날려도 정상적으로 작동하기 때문에 qeury만 남기고 이 url을
 활용하여 크롤링을 수행합니다. 즉, `https://map.naver.com/v5/api/search?query=` 
