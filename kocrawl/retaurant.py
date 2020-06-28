@@ -11,11 +11,6 @@ from kocrawl.searcher.restaurant_searcher import RestaurantSearcher
 
 class RestaurantCrawler(BaseCrawler):
 
-    def __init__(self):
-        self.searcher = RestaurantSearcher()
-        self.editor = RestaurantEditor()
-        self.answerer = RestaurantAnswerer()
-
     def request(self, location: str, restaurant: str) -> str:
         """
         맛집을 크롤링합니다.
@@ -60,7 +55,7 @@ class RestaurantCrawler(BaseCrawler):
         :return: 해당지역 맛집
         """
 
-        result_dict = self.searcher.naver_search(location, restaurant)
-        result = self.editor.edit_restaurant(result_dict)
-        result = self.answerer.recommendation_form(location, restaurant, result)
+        result_dict = RestaurantSearcher().naver_search(location, restaurant)
+        result = RestaurantEditor().edit_restaurant(result_dict)
+        result = RestaurantAnswerer().recommendation_form(location, restaurant, result)
         return result, result_dict

@@ -6,11 +6,6 @@ from kocrawl.searcher.weather_searcher import WeatherSearcher
 
 class WeatherCrawler(BaseCrawler):
 
-    def __init__(self):
-        self.searcher = WeatherSearcher()
-        self.editor = WeatherEditor()
-        self.answerer = WeatherAnswerer()
-
     def request(self, location: str, date: str):
         """
         날씨를 크롤링합니다.
@@ -74,9 +69,9 @@ class WeatherCrawler(BaseCrawler):
         :return: 오늘 날씨
         """
 
-        result_dict = self.searcher.naver_search(location)
-        result = self.editor.edit_today(result_dict)
-        return self.answerer.comparison_with_yesterday_form(location, "오늘", result), result_dict
+        result_dict = WeatherSearcher().naver_search(location)
+        result = WeatherEditor().edit_today(result_dict)
+        return WeatherAnswerer().comparison_with_yesterday_form(location, "오늘", result), result_dict
 
     def __tomorrow(self, location: str) -> tuple:
         """
@@ -86,9 +81,9 @@ class WeatherCrawler(BaseCrawler):
         :return: 내일 날씨
         """
 
-        result_dict = self.searcher.naver_search(location)
-        result, josa = self.editor.edit_tomorrow(result_dict)
-        return self.answerer.morning_afternoon_form(location, "내일", result, josa), result_dict
+        result_dict = WeatherSearcher().naver_search(location)
+        result, josa = WeatherEditor().edit_tomorrow(result_dict)
+        return WeatherAnswerer().morning_afternoon_form(location, "내일", result, josa), result_dict
 
     def __after(self, location: str) -> tuple:
         """
@@ -98,9 +93,9 @@ class WeatherCrawler(BaseCrawler):
         :return: 모레 날씨
         """
 
-        result_dict = self.searcher.naver_search(location)
-        result, josa = self.editor.edit_after(result_dict)
-        return self.answerer.morning_afternoon_form(location, "모레", result, josa), result_dict
+        result_dict = WeatherSearcher().naver_search(location)
+        result, josa = WeatherEditor().edit_after(result_dict)
+        return WeatherAnswerer().morning_afternoon_form(location, "모레", result, josa), result_dict
 
     def __specific(self, location: str, date: str) -> tuple:
         """
@@ -111,6 +106,6 @@ class WeatherCrawler(BaseCrawler):
         :return: 오늘 날씨
         """
 
-        result_dict = self.searcher.google_search(location, date)
-        result = self.editor.edit_specific(result_dict)
-        return self.answerer.specific_date_form(location, date, result), result_dict
+        result_dict = WeatherSearcher().google_search(location, date)
+        result = WeatherEditor().edit_specific(result_dict)
+        return WeatherAnswerer().specific_date_form(location, date, result), result_dict

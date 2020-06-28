@@ -11,11 +11,6 @@ from kocrawl.searcher.map_searcher import MapSearcher
 
 class MapCrawler(BaseCrawler):
 
-    def __init__(self):
-        self.searcher = MapSearcher()
-        self.editor = MapEditor()
-        self.answerer = MapAnswerer()
-
     def request(self, location: str, place: str) -> str:
         """
         지도를 크롤링합니다.
@@ -60,7 +55,7 @@ class MapCrawler(BaseCrawler):
         :return: 해당지역 장소
         """
 
-        result_dict = self.searcher.search_naver_map(location, place)
-        result = self.editor.edit_map(location, place, result_dict)
-        result = self.answerer.map_form(location, place, result)
+        result_dict = MapSearcher().search_naver_map(location, place)
+        result = MapEditor().edit_map(location, place, result_dict)
+        result = MapAnswerer().map_form(location, place, result)
         return result, result_dict

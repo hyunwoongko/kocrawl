@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='kocrawl',
-    version='0.2',
+    version='0.3',
     description='Korean web crawler collections',
     author='Hyunwoong Ko',
     author_email='gusdnd852@naver.com',
