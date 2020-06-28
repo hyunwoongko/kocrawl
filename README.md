@@ -2,12 +2,26 @@
 [![PyPI version](https://badge.fury.io/py/kocrawl.svg)](https://badge.fury.io/py/kocrawl)
 ![GitHub](https://img.shields.io/github/license/gusdnd852/kocrawl)
 [![CodeFactor](https://www.codefactor.io/repository/github/gusdnd852/kocrawl/badge)](https://www.codefactor.io/repository/github/gusdnd852/kocrawl)
+![](docs/logo.jpg)
 
 ## Table of contents
-
+- [1. Kocrawl이란?](https://github.com/gusdnd852/kocrawl#1-kocrawl%EC%9D%B4%EB%9E%80)
+    - [Waring](https://github.com/gusdnd852/kocrawl#-warning)
+- [2. Getting Started](https://github.com/gusdnd852/kocrawl#2-getting-started)
+- [3. Supported Features](https://github.com/gusdnd852/kocrawl#3-supported-features)
+- [4. Usage](https://github.com/gusdnd852/kocrawl#4-usage)
+    - [4.1. request()](https://github.com/gusdnd852/kocrawl#41-request)
+    - [4.2. request_dict()](https://github.com/gusdnd852/kocrawl#42-request_dict)
+    - [4.3. request_debug()](https://github.com/gusdnd852/kocrawl#43-request_debug)
+- [5. Cralwer Implementation](https://github.com/gusdnd852/kocrawl#5-crawler-implementation)
+    - [5.1. Kocrawl 아키텍처](https://github.com/gusdnd852/kocrawl#51-kocrawl-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98)
+    - [5.2. 해당 사이트가 정적 사이트일때](https://github.com/gusdnd852/kocrawl#52-%ED%95%B4%EB%8B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EA%B0%80-%EC%A0%95%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%9D%BC%EB%95%8C)
+    - [5.3. 해당 사이트가 동적 사이트(ajax)일때](https://github.com/gusdnd852/kocrawl#53-%ED%95%B4%EB%8B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EA%B0%80-%EB%8F%99%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8ajax%EC%9D%BC%EB%95%8C)
+- [6. Contributor](https://github.com/gusdnd852/kocrawl#6-contributor)
+- [7. License](https://github.com/gusdnd852/kocrawl#7-license)
+<br><br><br>
 
 ## 1. Kocrawl이란?
-![](docs/logo.jpg)
 
 Kocrawl은 매우 간단하게 사용할 수 있는 한국어 크롤러 모음 라이브러리입니다.
 이 패키지는 한달에 한번 꼴로 버그를 점검하고, 새로운 기능을 추가할 예정입니다.
@@ -233,25 +247,32 @@ IndexError: list index out of range
 
 ### 5.1. Kocrawl 아키텍처
 Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 구현되어있습니다.
-구조가 매우 간단하고 객체지향을 최대한 살려서 구현했기 때문에 크롤러 개발 공부하시는데 도움이 될 수 있습니다. 
-라이브러리의 전체적인 동작에 관련된 시퀀스 다이어그램을 아래에 첨부합니다.<br><br>
+구조가 매우 간단하고 객체지향을 최대한 살려서 구현했기 때문에 여러분이 새로운 크롤러를 만들 때
+유용할 수 있습니다. 추가로, 라이브러리에 컨트리뷰션하실 분이 있을진 모르겠지만.. 컨트리뷰션하시려면
+참고해주시길 바랍니다. 라이브러리의 전체적인 동작에 관련된 시퀀스 다이어그램을 아래에 첨부합니다.<br><br>
 
 ![](docs/diagram.jpg)
 
 <br>
 
 ###  5.2. 해당 사이트가 정적 사이트일때
-정적 사이트는 beautifulsoup과 CSS 셀렉터로 구현합니다. 셀렉터를 딸 때는 구글크롬을 사용하는 것이 효과적입니다.
-이렇게 원하는 부분을 우클릭하고 '검사'를 클릭합니다.
+정적 사이트는 beautifulsoup과 CSS 셀렉터로 구현합니다. 
+셀렉터를 딸 때는 구글크롬을 사용하는 것이 효과적입니다.
+아래처럼 원하는 부분을 우클릭하고 '검사'를 클릭합니다.
+<br><br>
 
 ![](docs/impl_01.jpg)
 
 그러면 오른쪽처럼 웹페이지의 소스코드를 볼 수 있습니다.
-이 소스코드에서 원하는 컴포넌트의 셀렉터를 따야합니다.
+이 소스코드에서 원하는 컴포넌트의 셀렉터를 따야합니다. 
+<br><br>
 
 ![](docs/impl_02.jpg)
 
-아래의 4가지 CSS 셀렉터 규칙만 알면 거의 대부분의 셀렉터를 딸 수 있습니다.
+위 처럼 셀렉터 String을 만들고, bs4의 select()에 입력하면 원하는 컴포넌트를
+크롤링 할 수 있습니다. 복잡해보이지만 아래의 4가지 CSS 셀렉터 규칙만 알면 거의 
+대부분의 셀렉터를 딸 수 있습니다. 
+<br><br>
 
 ```
 1. 태그의 경우 그대로 적습니다 (e.g. <div> → div)
@@ -259,17 +280,19 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 3. 아이디의 경우 '#' 뒤에 적습니다. (e.g. id="some_id" → #some_id)
 4. 하위 요소로 접근할 때는 '>' 를 사용합니다 (e.g. div.info_area > div.tit)
 ```
-이 셀렉터를 이용해 bs4로 검색하고 적절히 보기 좋게 수정한 뒤 반환하면 됩니다.
-만약 이 4가지 규칙으로 해당 요소에 접근할 수 없다면 구글에 'CSS 셀렉터'를 검색하셔서
-더 세부적인 규칙을 확인하고 셀렉터를 작성해주세요.
+
+만들어낸 셀렉터 문자열을 이용해 bs4로 검색하고 적절히 보기 좋게 수정한 뒤 
+사용자에게 반환하면 됩니다. 만약 이 4가지 규칙으로 원하는 요소에 접근할 수 없다면 
+구글에 'CSS 셀렉터'를 검색하셔서 더 세부적인 규칙을 확인하고 셀렉터를 작성해주세요.
     
 <br>
 
-###  5.3. 해당 사이트가 동적 사이트(ajax) 일때
+###  5.3. 해당 사이트가 동적 사이트(ajax)일때
 동적 사이트의 경우 HTTP 통신 중 GET을 사용한다면 requests와 json을 이용하여 매우 쉽게 크롤링 할 수 있습니다.
 만약 POST를 사용한다면 Selenium 같이 실제로 브라우저를 띄우고 크롤링 하는 방식을 사용해야 
 하는데 Kocrawl은 이런 방식의 크롤링은 다루지 않을 예정입니다. 여기에서는 GET 방식 크롤링만
 알려드리도록 하겠습니다. 이번에는 구글크롬의 Network 툴을 이용합니다. 구글크롬을 열어서 F12를 눌러서 개발자 도구를 열고, Network를 눌러봅시다.
+<br><br>
 
 ![](docs/impl_03.jpg)
 
@@ -277,6 +300,8 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 여기에서는 네이버 지도를 크롤링해보겠습니다. 네이버 지도는 동적으로 구현되어
 셀렉터 방식으로는 검색결과를 크롤링 할 수 없습니다.
 네트워크 툴을 열고 있는 상태에서 원하는 기능을 수행해봅시다. ('서울 여행지' 검색)
+<br><br>
+
 
 ![](docs/impl_04.jpg)
 
@@ -285,11 +310,13 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 파란색 네모칸에 주고받은 모든 요소가 나오게 됩니다. 대부분은 사진들이고 위쪽에 
 4개의 요소만 사진이 아닙니다. 이 때, 사이즈와 시간이 제일 큰 가장 위 요소가 지도 API일 확률이 높습니다.
 해당 요소를 클릭해봅시다.
+<br><br>
+
 
 ![](docs/impl_05.jpg)
 
-빨간색 네모칸에 request를 위한 url이 나오게 됩니다.
-이 url로 접속해봅시다.
+빨간색 네모칸에 request에 필요한 url이 나오게 됩니다. 이 url로 접속해봅시다.
+<br><br>
 
 ![](docs/impl_06.jpg)
 
@@ -299,6 +326,7 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 나머지는 별로 필요 없어보이기 때문에 날리겠습니다. 
 만약 문제가 생긴다면 여러번 시도하면서
 필수 파라미터만 남기고 다 없애는 것이 좋습니다.
+<br><br>
 
 ![](docs/impl_07.jpg)
 
