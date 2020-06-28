@@ -1,15 +1,24 @@
+import codecs
+
 from setuptools import setup, find_packages
+
+
+def read_file(filename, cb):
+    with codecs.open(filename, 'r', 'utf8') as f:
+        return cb(f)
+
 
 setup(
     name='kocrawl',
-    version='0.3',
+    version='0.4',
     description='Korean web crawler collections',
     author='Hyunwoong Ko',
     author_email='gusdnd852@naver.com',
     url='https://github.com/Kochat-framework/kocrawl',
-    install_requires=['numpy', 'beautifulsoup4', 'requests'],
     packages=find_packages(exclude=[]),
     keywords=['crawler', 'korean crawler', 'kochat'],
+    install_requires=read_file('requirements.txt', lambda f: list(
+        filter(bool, map(str.strip, f)))),
     python_requires='>=3',
     package_data={},
     zip_safe=False,
@@ -21,5 +30,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
 )

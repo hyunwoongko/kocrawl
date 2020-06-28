@@ -19,7 +19,7 @@ class WeatherCrawler(BaseCrawler):
         try:
             return self.request_debug(location, date)[0]
         except Exception:
-            return self.answerer.sorry(
+            return WeatherAnswerer().sorry(
                 '그 날씨는 알 수가 없어요.'
             )
 
@@ -36,7 +36,7 @@ class WeatherCrawler(BaseCrawler):
         try:
             return self.request_debug(location, date)[1]
         except Exception:
-            return self.answerer.sorry(
+            return WeatherAnswerer().sorry(
                 '그 날씨는 알 수가 없어요.'
             )
 

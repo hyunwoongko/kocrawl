@@ -24,7 +24,7 @@ class RestaurantCrawler(BaseCrawler):
         try:
             return self.request_debug(location, restaurant)[0]
         except Exception:
-            return self.answerer.sorry(
+            return RestaurantAnswerer().sorry(
                 "해당 맛집 정보는 알 수가 없네요."
             )
 
@@ -41,7 +41,7 @@ class RestaurantCrawler(BaseCrawler):
         try:
             return self.request_debug(location, restaurant)[1]
         except Exception:
-            return self.answerer.sorry(
+            return RestaurantAnswerer().sorry(
                 "해당 맛집 정보는 알 수가 없네요."
             )
 

@@ -25,7 +25,7 @@ class DustCrawler(BaseCrawler):
         try:
             return self.request_debug(location, date)[0]
         except Exception:
-            return self.answerer.sorry(
+            return DustAnswerer().sorry(
                 "해당 대기 오염정보는 알 수 없습니다."
             )
 
@@ -42,7 +42,7 @@ class DustCrawler(BaseCrawler):
         try:
             return self.request_debug(location, date)[1]
         except Exception:
-            return self.answerer.sorry(
+            return DustAnswerer().sorry(
                 "해당 대기 오염정보는 알 수 없습니다."
             )
 
@@ -70,9 +70,9 @@ class DustCrawler(BaseCrawler):
         """
 
         try:
-            result_dict = DustAnswerer().new_everyday(location, date)
+            result_dict = DustSearcher().new_everyday(location, date)
             result, josa = DustEditor().edit_morning_afternoon(location, date, result_dict)
-            return DustSearcher().morning_afternoon_form(location, date, result, josa), result_dict
+            return DustAnswerer().morning_afternoon_form(location, date, result, josa), result_dict
         except Exception:
             return self.__old_version(location, date)
 
@@ -103,9 +103,9 @@ class DustCrawler(BaseCrawler):
         :return: 해당지역 날짜 미세먼지
         """
 
-        result_dict = DustAnswerer().old_today(location, date)
+        result_dict = DustSearcher().old_today(location, date)
         result, josa = DustEditor().edit_single(location, date, result_dict)
-        return DustSearcher().single_form(location, date, result, josa), result_dict
+        return DustAnswerer().single_form(location, date, result, josa), result_dict
 
     def __old_tomorrow(self, location: str, date: str) -> tuple:
         """
@@ -118,6 +118,6 @@ class DustCrawler(BaseCrawler):
         :return: 해당지역 날짜 미세먼지
         """
 
-        result_dict = DustAnswerer().old_tomorrow(location, date)
+        result_dict = DustSearcher().old_tomorrow(location, date)
         result, josa = DustEditor().edit_morning_afternoon(location, date, result_dict)
-        return DustSearcher().morning_afternoon_form(location, date, result, josa), result_dict
+        return DustAnswerer().morning_afternoon_form(location, date, result, josa), result_dict

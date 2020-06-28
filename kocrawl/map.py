@@ -24,7 +24,7 @@ class MapCrawler(BaseCrawler):
         try:
             return self.request_debug(location, place)[0]
         except Exception:
-            return self.answerer.sorry(
+            return MapAnswerer().sorry(
                 "해당 지역은 알 수 없습니다."
             )
 
@@ -41,7 +41,7 @@ class MapCrawler(BaseCrawler):
         try:
             return self.request_debug(location, place)[1]
         except Exception:
-            return self.answerer.sorry(
+            return MapAnswerer().sorry(
                 "해당 지역은 알 수 없습니다."
             )
 
