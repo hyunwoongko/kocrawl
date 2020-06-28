@@ -255,7 +255,7 @@ IndexError: list index out of range
 Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 구현되어있습니다.
 구조가 매우 간단하고 객체지향을 최대한 살려서 구현했기 때문에 여러분이 새로운 크롤러를 만들 때
 유용할 수 있습니다. 추가로, 라이브러리에 컨트리뷰션하실 분이 있을진 모르겠지만.. 컨트리뷰션하시려면
-참고해주시길 바랍니다. 라이브러리의 전체적인 동작에 관련된 시퀀스 다이어그램을 아래에 첨부합니다.<br><br>
+참고하시길 바랍니다. 라이브러리의 전체적인 동작에 관련된 시퀀스 다이어그램을 아래에 첨부합니다.<br><br>
 
 ![diagram](https://user-images.githubusercontent.com/38183241/85956893-e336c480-b9c3-11ea-9f70-0f2687b1122d.png)
 
@@ -292,8 +292,8 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
 <br>
 
 ###  5.3. 동적 사이트(ajax) 크롤링
-동적 사이트의 경우 HTTP 통신 중 GET을 사용한다면 requests와 json을 이용하여 매우 쉽게 크롤링 할 수 있습니다.
-만약 POST를 사용한다면 Selenium 같이 실제로 브라우저를 띄우고 크롤링 하는 방식을 사용해야 
+동적 사이트의 경우 HTTP 통신 중 GET 방식을 사용한다면 requests와 json을 이용하여 매우 쉽게 크롤링 할 수 있습니다.
+만약 POST 방식을 사용한다면 Selenium 같이 실제로 브라우저를 띄우고 크롤링 하는 방식을 사용해야 
 하는데 Kocrawl은 이런 방식의 크롤링은 다루지 않을 예정입니다. 여기에서는 GET 방식 크롤링만
 알려드리도록 하겠습니다. 이번에는 구글크롬의 Network 툴을 이용합니다. 구글크롬을 열어서 F12를 눌러서 개발자 도구를 열고, Network를 눌러봅시다.
 <br><br>
