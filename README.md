@@ -3,6 +3,8 @@
 ![GitHub](https://img.shields.io/github/license/gusdnd852/kocrawl)
 [![CodeFactor](https://www.codefactor.io/repository/github/gusdnd852/kocrawl/badge)](https://www.codefactor.io/repository/github/gusdnd852/kocrawl)
 ![logo](https://user-images.githubusercontent.com/38183241/85956888-d619d580-b9c3-11ea-9243-29d2bce90cb4.png)
+<br><br><br>
+
 ## Table of contents
 - [1. Kocrawl이란?](https://github.com/gusdnd852/kocrawl#1-kocrawl%EC%9D%B4%EB%9E%80)
     - [Waring](https://github.com/gusdnd852/kocrawl#-warning)
@@ -14,8 +16,8 @@
     - [4.3. request_debug()](https://github.com/gusdnd852/kocrawl#43-request_debug)
 - [5. Cralwer Implementation](https://github.com/gusdnd852/kocrawl#5-crawler-implementation)
     - [5.1. Kocrawl 아키텍처](https://github.com/gusdnd852/kocrawl#51-kocrawl-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98)
-    - [5.2. 해당 사이트가 정적 사이트일때](https://github.com/gusdnd852/kocrawl#52-%ED%95%B4%EB%8B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EA%B0%80-%EC%A0%95%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%9D%BC%EB%95%8C)
-    - [5.3. 해당 사이트가 동적 사이트(ajax)일때](https://github.com/gusdnd852/kocrawl#53-%ED%95%B4%EB%8B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EA%B0%80-%EB%8F%99%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8ajax%EC%9D%BC%EB%95%8C)
+    - [5.2. 정적 사이트 크롤링](https://github.com/gusdnd852/kocrawl/blob/master/README.md#52-%EC%A0%95%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8-%ED%81%AC%EB%A1%A4%EB%A7%81)
+    - [5.3. 동적 사이트(ajax) 크롤링](https://github.com/gusdnd852/kocrawl/blob/master/README.md#53-%EB%8F%99%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8ajax-%ED%81%AC%EB%A1%A4%EB%A7%81)
 - [6. Contributor](https://github.com/gusdnd852/kocrawl#6-contributor)
 - [7. License](https://github.com/gusdnd852/kocrawl#7-license)
 <br><br><br>
@@ -60,6 +62,7 @@ requests==2.24.0
 
 - 날씨 :  
     - 최근 업데이트 : v 1.0
+    - 패키지 : `from kocrawl.weather import WeatherCrawler`
     - 파라미터 1 - 지역(location) :  
         - 대한민국 전국
     - 파라미터 2 - 날짜(date) : 
@@ -70,6 +73,7 @@ requests==2.24.0
 
 - 미세먼지 : 
     - 최근 업데이트 : v 1.0
+    - 패키지 : `from kocrawl.dust import DustCrawler`
     - 파라미터 1 - 지역(location) :  
         - 대한민국 전국
     - 파라미터 2 - 날짜(date) : 
@@ -79,6 +83,7 @@ requests==2.24.0
 
 - 지도(장소추천) : 
     - 최근 업데이트 : v 1.0
+    - 패키지 : `from kocrawl.map import MapCrawler`
     - 파라미터 1 - 지역(location) :  
         - 대한민국 전국
     - 파라미터 2 - 장소(place) : 
@@ -86,8 +91,9 @@ requests==2.24.0
 
 <br>
 
-- 맛집추천 : 
+- 맛집 추천 : 
     - 최근 업데이트 : v 1.0
+    - 패키지 : `from kocrawl.restaurant import RestaurantCrawler`
     - 파라미터 1 - 지역(location) :  
         - 대한민국 전국
     - 파라미터 2 - 음식점 종류(restaurant) :
@@ -96,8 +102,9 @@ requests==2.24.0
 
 <br>
 
-- 맞춤법교정 : 
+- 맞춤법 교정 : 
     - 최근 업데이트 : v 1.0
+    - 패키지 : `from kocrawl.spell import SpellCrawler`
     - 파라미터 1 - 문자열(text) :  
         - 네이버 맞춤법 교정 : 500글자 이하의 문자열
 
@@ -241,31 +248,33 @@ IndexError: list index out of range
 <br><br><br>
 
 ## 5. Crawler Implementation
-이 챕터에서는 다양한 상황에서 크롤러를 구현해내는 방법에 대해 간단히 소개합니다. 
+이 챕터에서는 크롤러를 구현하는 방법에 대해 간단히 소개합니다. 
 <br><br>
 
 ### 5.1. Kocrawl 아키텍처
 Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 구현되어있습니다.
 구조가 매우 간단하고 객체지향을 최대한 살려서 구현했기 때문에 여러분이 새로운 크롤러를 만들 때
 유용할 수 있습니다. 추가로, 라이브러리에 컨트리뷰션하실 분이 있을진 모르겠지만.. 컨트리뷰션하시려면
-참고해주시길 바랍니다. 라이브러리의 전체적인 동작에 관련된 시퀀스 다이어그램을 아래에 첨부합니다.<br><br>
+참고하시길 바랍니다. 라이브러리의 전체적인 동작에 관련된 시퀀스 다이어그램을 아래에 첨부합니다.<br><br>
 
 ![diagram](https://user-images.githubusercontent.com/38183241/85956893-e336c480-b9c3-11ea-9f70-0f2687b1122d.png)
 
 <br>
 
-###  5.2. 해당 사이트가 정적 사이트일때
+###  5.2. 정적 사이트 크롤링
 정적 사이트는 beautifulsoup과 CSS 셀렉터로 구현합니다. 
 셀렉터를 딸 때는 구글크롬을 사용하는 것이 효과적입니다.
 아래처럼 원하는 부분을 우클릭하고 '검사'를 클릭합니다.
 <br><br>
 
 ![impl_01](https://user-images.githubusercontent.com/38183241/85956927-f053b380-b9c3-11ea-94aa-79554473e559.png)
+
 그러면 오른쪽처럼 웹페이지의 소스코드를 볼 수 있습니다.
 이 소스코드에서 원하는 컴포넌트의 셀렉터를 따야합니다. 
 <br><br>
 
 ![impl_02](https://user-images.githubusercontent.com/38183241/85956932-f9448500-b9c3-11ea-82d4-ec65e1a68909.png)
+
 위 처럼 셀렉터 String을 만들고, bs4의 select()에 입력하면 원하는 컴포넌트를
 크롤링 할 수 있습니다. 복잡해보이지만 아래의 4가지 CSS 셀렉터 규칙만 알면 거의 
 대부분의 셀렉터를 딸 수 있습니다. 
@@ -284,9 +293,9 @@ Kocrawl은 Crawler, Searcher, Editor, Answerer라는 네가지 컴포넌트로 �
     
 <br>
 
-###  5.3. 해당 사이트가 동적 사이트(ajax)일때
-동적 사이트의 경우 HTTP 통신 중 GET을 사용한다면 requests와 json을 이용하여 매우 쉽게 크롤링 할 수 있습니다.
-만약 POST를 사용한다면 Selenium 같이 실제로 브라우저를 띄우고 크롤링 하는 방식을 사용해야 
+###  5.3. 동적 사이트(ajax) 크롤링
+동적 사이트의 경우 HTTP 통신 중 GET 방식을 사용한다면 requests와 json을 이용하여 매우 쉽게 크롤링 할 수 있습니다.
+만약 POST 방식을 사용한다면 Selenium 같이 실제로 브라우저를 띄우고 크롤링 하는 방식을 사용해야 
 하는데 Kocrawl은 이런 방식의 크롤링은 다루지 않을 예정입니다. 여기에서는 GET 방식 크롤링만
 알려드리도록 하겠습니다. 이번에는 구글크롬의 Network 툴을 이용합니다. 구글크롬을 열어서 F12를 눌러서 개발자 도구를 열고, Network를 눌러봅시다.
 <br><br>
