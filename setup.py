@@ -8,10 +8,15 @@ def read_file(filename, cb):
         return cb(f)
 
 
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name='kocrawl',
-    version='0.4',
+    version='0.5',
     description='Korean web crawler collections',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Hyunwoong Ko',
     author_email='gusdnd852@naver.com',
     url='https://github.com/Kochat-framework/kocrawl',
