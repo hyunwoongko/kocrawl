@@ -14,8 +14,8 @@
     - [4.3. request_debug()](https://github.com/gusdnd852/kocrawl#43-request_debug)
 - [5. Cralwer Implementation](https://github.com/gusdnd852/kocrawl#5-crawler-implementation)
     - [5.1. Kocrawl 아키텍처](https://github.com/gusdnd852/kocrawl#51-kocrawl-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98)
-    - [5.2. 해당 사이트가 정적 사이트일때](https://github.com/gusdnd852/kocrawl#52-%ED%95%B4%EB%8B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EA%B0%80-%EC%A0%95%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%9D%BC%EB%95%8C)
-    - [5.3. 해당 사이트가 동적 사이트(ajax)일때](https://github.com/gusdnd852/kocrawl#53-%ED%95%B4%EB%8B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EA%B0%80-%EB%8F%99%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8ajax%EC%9D%BC%EB%95%8C)
+    - [5.2. 정적 사이트 크롤링](https://github.com/gusdnd852/kocrawl/blob/master/README.md#52-%EC%A0%95%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8-%ED%81%AC%EB%A1%A4%EB%A7%81)
+    - [5.3. 동적 사이트(ajax) 크롤링](https://github.com/gusdnd852/kocrawl/blob/master/README.md#53-%EB%8F%99%EC%A0%81-%EC%82%AC%EC%9D%B4%ED%8A%B8ajax-%ED%81%AC%EB%A1%A4%EB%A7%81)
 - [6. Contributor](https://github.com/gusdnd852/kocrawl#6-contributor)
 - [7. License](https://github.com/gusdnd852/kocrawl#7-license)
 <br><br><br>
