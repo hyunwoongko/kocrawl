@@ -13,7 +13,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='kocrawl',
-    version='1.0.2',
+    version='1.0.3',
     description='Korean web crawler collections',
     long_description=long_description,
     long_description_content_type='text/markdown',
