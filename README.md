@@ -1,7 +1,7 @@
 # Kocrawl
 [![PyPI version](https://badge.fury.io/py/kocrawl.svg)](https://badge.fury.io/py/kocrawl)
 ![GitHub](https://img.shields.io/github/license/gusdnd852/kocrawl)
-[![CodeFactor](https://www.codefactor.io/repository/github/gusdnd852/kocrawl/badge)](https://www.codefactor.io/repository/github/gusdnd852/kocrawl)
+
 ![logo](https://user-images.githubusercontent.com/38183241/85956888-d619d580-b9c3-11ea-9243-29d2bce90cb4.png)
 <br><br><br>
 
