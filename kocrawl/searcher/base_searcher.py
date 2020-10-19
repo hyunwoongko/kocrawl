@@ -80,8 +80,9 @@ class BaseSearcher(BaseCrawler, metaclass=ABCMeta):
         :param query: 검색할 쿼리
         :return: 크롤링된 json 파일
         """
+        if not query:
+            url += urllib.parse.quote(query)
 
-        url += urllib.parse.quote(query)
         req = requests.get(url, headers=self.headers)
         if req.status_code == requests.codes.ok:
             loaded_data = json.loads(req.text)
