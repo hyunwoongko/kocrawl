@@ -110,6 +110,22 @@ requests==2.24.0
 
 <br>
 
+- 다음 랭킹 뉴스 :
+    - 최근 업데이트 : v 1.05
+    - 패키지 : `from kocrawl.daum_news import DaumNewsCrawler`
+    - 파라미터 : top_n(int) :
+        - 최대 n개의 뉴스 기사 크롤링
+        
+<br>
+
+- 다음 랭킹 백과 :
+    - 최근 업데이트 : v 1.05
+    - 패키지 : `from kocrawl.daum_dict import DaumDictCrawler`
+    - 파라미터 : top_n(int) :
+        - 최대 n개의 백과 키워드 크롤링
+        
+<br>
+        
 그 외의 API는 Issue를 통해 신청 받습니다. 만약 신청이 없다면 자체적으로 
 새로운 기능을 고안하여 매달 추가하고, 신청이 있다면 매달 업데이트 때 신청된 기능들 중
 한 가지 기능을 구현하여 패키지를 배포하도록 하겠습니다. 만약 현재 패키지에
@@ -129,26 +145,25 @@ requests==2.24.0
 
 4.1.1. 정상 처리시
 ```python
-from kocrawl.weather import WeatherCrawler
+>>> from kocrawl.weather import WeatherCrawler
 
-crawler = WeatherCrawler()
-crawler.request(location='서울', date='오늘')
+>>> crawler = WeatherCrawler()
+>>> crawler.request(location='서울', date='오늘')
 
-
->>> '서울의 날씨 정보를 전해드릴게요. 😉
-    오늘 서울지역은 섭씨 21도이며, 어제보다1˚낮아요. 구름이 많이 낀 날씨에요.'
+'서울의 날씨 정보를 전해드릴게요. 😉'
+'오늘 서울지역은 섭씨 21도이며, 어제보다1˚낮아요. 구름이 많이 낀 날씨에요.'
 ```
 
 <br>
 
 4.1.2. 오류 발생시
 ```python
-from kocrawl.weather import WeatherCrawler
+>>> from kocrawl.weather import WeatherCrawler
 
-crawler = WeatherCrawler()
-crawler.request(location='런던', date='1901년 3월 2일')
+>>> crawler = WeatherCrawler()
+>>> crawler.request(location='런던', date='1901년 3월 2일')
 
->>> '그 날씨는 알 수가 없어요.'
+'그 날씨는 알 수가 없어요.'
 ```
 <br><br>
 
@@ -160,13 +175,13 @@ crawler.request(location='런던', date='1901년 3월 2일')
 
 4.2.1. 정상 처리시
 ```python
-from kocrawl.weather import WeatherCrawler
+>>> from kocrawl.weather import WeatherCrawler
 
-crawler = WeatherCrawler()
-crawler.request_dict(location='서울', date='오늘')
+>>> crawler = WeatherCrawler()
+>>> crawler.request_dict(location='서울', date='오늘')
 
 
->>> {'today_weather': '맑음,어제보다1˚낮아요', 
+{'today_weather': '맑음,어제보다1˚낮아요', 
      'tomorrow_morning_weather': '흐리고가끔비', 
      'tomorrow_afternoon_weather': '구름많음', 
      'after_morning_weather': '구름많음', 
@@ -184,12 +199,12 @@ crawler.request_dict(location='서울', date='오늘')
 
 4.2.2. 오류 발생시
 ```python
-from kocrawl.weather import WeatherCrawler
+>>> from kocrawl.weather import WeatherCrawler
 
-crawler = WeatherCrawler()
-crawler.request_dict(location='런던', date='1901년 3월 2일')
+>>> crawler = WeatherCrawler()
+>>> crawler.request_dict(location='런던', date='1901년 3월 2일')
 
->>> '그 날씨는 알 수가 없어요.'
+'그 날씨는 알 수가 없어요.'
 ```
 <br><br>
 
@@ -202,15 +217,15 @@ Try-Except가 설정되어 있지 않습니다. (주로 개발자인 제가 사�
 
 4.3.1. 정상 처리시
 ```python
-from kocrawl.weather import WeatherCrawler
+>>> from kocrawl.weather import WeatherCrawler
 
-crawler = WeatherCrawler()
-crawler.request_debug(location='서울', date='오늘')
+>>> crawler = WeatherCrawler()
+>>> crawler.request_debug(location='서울', date='오늘')
 
->>> ('서울의 날씨 정보를 전해드릴게요. 😉 
-     오늘 서울지역은 섭씨 21도이며, 어제보다1˚낮아요. 구름이 많이 낀 날씨에요.' , 
+('서울의 날씨 정보를 전해드릴게요. 😉 '
+'오늘 서울지역은 섭씨 21도이며, 어제보다1˚낮아요. 구름이 많이 낀 날씨에요.' , 
  
-    {'today_weather': '맑음,어제보다1˚낮아요', 
+{'today_weather': '맑음,어제보다1˚낮아요', 
      'tomorrow_morning_weather': '흐리고가끔비', 
      'tomorrow_afternoon_weather': '구름많음', 
      'after_morning_weather': '구름많음', 
@@ -228,12 +243,12 @@ crawler.request_debug(location='서울', date='오늘')
 
 4.3.2. 오류 발생시
 ```python
-from kocrawl.weather import WeatherCrawler
+>>> from kocrawl.weather import WeatherCrawler
 
-crawler = WeatherCrawler()
-crawler.request_debug(location='런던', date='1901년 3월 2일')
+>>> crawler = WeatherCrawler()
+>>> crawler.request_debug(location='런던', date='1901년 3월 2일')
 
->>>
+
 Traceback (most recent call last):
   File "C:/Users/ASUS/Desktop/kocrawl/test/test.py", line 9, in <module>
     print(c.request_debug(location='런던', date='1901년 3월 2일'))
