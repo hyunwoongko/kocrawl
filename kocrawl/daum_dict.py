@@ -15,7 +15,11 @@ class DaumDictCrawler(BaseCrawler):
 
     def request_dict(self, top_n: int):
         try:
-            return dict(self.request_debug(top_n))
+            out, urls = self.request_debug(top_n)
+            return {
+                "output": out,
+                "urls": urls
+            }
         except:
             return "에러가 발생했어요."
 

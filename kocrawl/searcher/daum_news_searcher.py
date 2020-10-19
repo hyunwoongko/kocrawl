@@ -11,13 +11,15 @@ class DaumNewsSearcher(BaseSearcher):
     def _make_query(self):
         return None
 
-    def search_daum_news(self, top_n: int) -> list:
+    def search_daum_news(self, top_n: int) -> tuple:
         result = self._bs4_documents(
             url=self.url["daum_news"], selectors=self.selectors[0]
         )
 
         articles = []
-        for url in tqdm((res.get("href") for res in result)):
+        urls = [res.get("href") for res in result]
+        urls_output = []
+        for url in tqdm(urls):
             if len(articles) >= top_n:
                 break
 
@@ -29,5 +31,6 @@ class DaumNewsSearcher(BaseSearcher):
 
             if len(sentences) > 300:
                 articles.append(sentences)
+                urls_output.append(url)
 
-        return articles
+        return articles, urls_output

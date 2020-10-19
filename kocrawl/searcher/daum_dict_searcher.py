@@ -11,7 +11,7 @@ class DaumDictSearcher(BaseSearcher):
     def _make_query(self):
         return None
 
-    def search_daum_dict(self, top_n: int) -> list:
+    def search_daum_dict(self, top_n: int) -> tuple:
         result = self._bs4_contents(
             url=self.url["daum_dict"], selectors=self.selectors[0]
         )
@@ -21,21 +21,24 @@ class DaumDictSearcher(BaseSearcher):
 
         cache_dict = {}
         keywords = set()
+        urls = {}
         for url, keyword in tqdm(result):
             keywords.add(keyword)
             if len(keywords) > top_n:
                 break
 
+            urls[keyword] = url
             document = self._bs4_contents(url=url, selectors=self.selectors[1])
             for paragraph in document:
                 for sentence in paragraph:
                     sentence = self._untag(sentence)
+
                     if keyword not in cache_dict:
                         cache_dict[keyword] = sentence
                     else:
                         cache_dict[keyword] += sentence
 
-        output_list = []
+        output_list, url_list = [], []
         for o in cache_dict.items():
             keyword = o[0]
             context = o[1].split("\r")[0]
@@ -45,5 +48,6 @@ class DaumDictSearcher(BaseSearcher):
 
             if keyword in context:
                 output_list.append((keyword, context))
+                url_list.append(urls[keyword])
 
-        return output_list
+        return output_list, url_list
