@@ -26,7 +26,9 @@ class BaseSearcher(BaseCrawler, metaclass=ABCMeta):
         :return: parsing된 html
         """
 
-        url = url + urllib.parse.quote(query)
+        if query:
+            url += urllib.parse.quote(query)
+
         out = bs4.BeautifulSoup(urlopen(Request(url, headers=self.headers)).read(), 'html.parser')
         return out
 
@@ -80,7 +82,8 @@ class BaseSearcher(BaseCrawler, metaclass=ABCMeta):
         :param query: 검색할 쿼리
         :return: 크롤링된 json 파일
         """
-        if not query:
+
+        if query:
             url += urllib.parse.quote(query)
 
         req = requests.get(url, headers=self.headers)

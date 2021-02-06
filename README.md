@@ -91,17 +91,6 @@ requests==2.24.0
 
 <br>
 
-- 맛집 추천 : 
-    - 최근 업데이트 : v 1.0
-    - 패키지 : `from kocrawl.restaurant import RestaurantCrawler`
-    - 파라미터 1 - 지역(location) :  
-        - 대한민국 전국
-    - 파라미터 2 - 음식점 종류(restaurant) :
-        - 네이버 플레이스 : 모든 음식점 검색 가능
-        - (지도 크롤러보다 다양한 정보가 제공됩니다.)
-
-<br>
-
 - 맞춤법 교정 : 
     - 최근 업데이트 : v 1.0
     - 패키지 : `from kocrawl.spell import SpellCrawler`
