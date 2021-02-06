@@ -366,7 +366,7 @@ requests 모듈을 사용해서 접속하고, json 모듈을 통해서 원하는
 ## 7. License
 
 ```
-Copyright 2020 Kocrawl.
+Copyright 2020 Hyunwoong Ko.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
